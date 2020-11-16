@@ -1,11 +1,11 @@
 import connection from './index'
 
-class ServiceDB {
+class UserRepo {
   static createUser({ id, password }) {
     return new Promise((res, rej) => {
       connection.query(
         'INSERT INTO table_users(id, password, serial) VALUES (?, ?, ?)',
-        [id, password, 1],
+        [id, password, '1'],
         (err, result) => {
           if (err) {
             rej(err)
@@ -42,4 +42,4 @@ class ServiceDB {
   }
 }
 
-export default ServiceDB
+export default UserRepo

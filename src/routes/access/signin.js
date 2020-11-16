@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import Express from 'express'
+import { nanoid } from 'nanoid'
 
 import validator from '../../utils/validator'
 import UserRepo from '../../database/UserRepo'
@@ -19,7 +20,7 @@ const signin = router.post('/signin', validator(schema.signin), async (req, res)
     const isAuthorized = await compare({ textPassword: password, hash: user.password })
 
     if (isAuthorized) {
-      const newSerial = user.serial + 1
+      const newSerial = nanoid(10)
       await UserRepo.updateUser({ id, serial: newSerial })
 
       const access_token = signJwt(user.id, newSerial, 10)

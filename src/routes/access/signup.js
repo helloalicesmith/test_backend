@@ -24,6 +24,7 @@ const signup = router.post('/signup', validator(schema.signup), async (req, res)
 
     new SuccessResponse('account created').send(res)
   } catch (err) {
+    console.log(err)
     new AuthFailureResponse().send(res)
   }
 })

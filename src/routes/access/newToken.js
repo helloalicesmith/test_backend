@@ -1,4 +1,5 @@
 import Express from 'express'
+import { nanoid } from 'nanoid'
 
 import validator from '../../utils/validator'
 import { AuthFailureResponse, SuccessAuthorization } from '../../core/ApiResponse'
@@ -16,10 +17,10 @@ const newToken = router.post('/signin/new_token', validator(schema.auth, 'header
 
     const user = await ServiceDB.getUserById({ id })
 
-    if (token === 'access' || serial !== user.serial) {
+    if (token !== 'refresh' || serial !== user.serial) {
       new AuthFailureResponse('invalid token', null).send(res)
     } else {
-      const newSerial = user.serial + 1
+      const newSerial = nanoid(10)
       await ServiceDB.updateUser({ id, serial: newSerial })
 
       // eslint-disable-next-line camelcase
@@ -33,6 +34,7 @@ const newToken = router.post('/signin/new_token', validator(schema.auth, 'header
       }).send(res)
     }
   } catch (err) {
+    console.log(err)
     new AuthFailureResponse('error', null).send(res)
   }
 })
