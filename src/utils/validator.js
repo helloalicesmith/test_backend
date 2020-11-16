@@ -1,4 +1,4 @@
-import { BadRequestError } from '../core/ApiResponse.js'
+import { BadRequestError } from '../core/ApiResponse'
 
 export default (schema, source = 'body') => (req, res, next) => {
   try {
@@ -8,8 +8,8 @@ export default (schema, source = 'body') => (req, res, next) => {
 
     const { details } = error
 
-    next(new BadRequestError(details[0].message).send(res))
+    return next(new BadRequestError(details[0].message).send(res))
   } catch (error) {
-    next(error)
+    return next(error)
   }
 }

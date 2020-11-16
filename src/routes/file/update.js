@@ -1,24 +1,24 @@
 import Express from 'express'
 import multer from 'multer'
 
-import { BadRequestError, SuccessResponse } from '../../core/ApiResponse.js'
-import FilesRepo from '../../database/FilesRepo.js'
-import auth from '../../utils/auth.js'
-import validator from '../../utils/validator.js'
-import schema from '../access/schema.js'
+import { BadRequestError, SuccessResponse } from '../../core/ApiResponse'
+import FilesRepo from '../../database/FilesRepo'
+import auth from '../../utils/auth'
+import validator from '../../utils/validator'
+import schema from '../access/schema'
 
 const router = Express.Router()
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination(req, file, cb) {
     cb(null, 'uploads/')
   },
-  filename: function (req, file, cb) {
+  filename(req, file, cb) {
     cb(null, file.originalname)
   },
 })
 
-const uploadFile = multer({ storage: storage })
+const uploadFile = multer({ storage })
 
 const update = router.put(
   '/file/update/:id',
@@ -44,7 +44,6 @@ const update = router.put(
       await FilesRepo.updateFileById(data)
       new SuccessResponse('file updated').send(res)
     } catch (err) {
-      console.log(err)
       new BadRequestError('error').send(res)
     }
   },

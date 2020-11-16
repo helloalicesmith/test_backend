@@ -1,4 +1,4 @@
-import { connection } from '../server.js'
+import connection from './index'
 
 class FilesRepo {
   static createFile({ name, extension, mime, size, date }) {
@@ -52,6 +52,7 @@ class FilesRepo {
       })
     })
   }
+
   static updateFileById({ name, extension, mime, size, date, id }) {
     return new Promise((res, rej) => {
       connection.query(

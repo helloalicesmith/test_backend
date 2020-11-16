@@ -1,6 +1,6 @@
-import { connection } from '../server.js'
+import connection from './index'
 
-class UserRepo {
+class ServiceDB {
   static createUser({ id, password }) {
     return new Promise((res, rej) => {
       connection.query(
@@ -42,4 +42,4 @@ class UserRepo {
   }
 }
 
-export default UserRepo
+export default ServiceDB

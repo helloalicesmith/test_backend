@@ -1,10 +1,10 @@
 import Express from 'express'
 
-import validator from '../../utils/validator.js'
-import { AuthFailureResponse, SuccessResponse } from '../../core/ApiResponse.js'
-import ServiceDB from '../../database/UserRepo.js'
-import { getHash } from '../../utils/getHash.js'
-import schema from './schema.js'
+import validator from '../../utils/validator'
+import { AuthFailureResponse, SuccessResponse } from '../../core/ApiResponse'
+import UserRepo from '../../database/UserRepo'
+import { getHash } from '../../utils/getHash'
+import schema from './schema'
 
 const router = Express.Router()
 
@@ -17,7 +17,7 @@ const signup = router.post('/signup', validator(schema.signup), async (req, res)
       saltRounds: 10,
     })
 
-    await ServiceDB.createUser({
+    await UserRepo.createUser({
       id,
       password: hash,
     })

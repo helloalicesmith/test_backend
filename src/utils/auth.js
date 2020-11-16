@@ -1,6 +1,6 @@
-import { BadRequestError } from '../core/ApiResponse.js'
-import { decodedJwt } from './jwt.js'
-import UserRepo from '../database/UserRepo.js'
+import { BadRequestError } from '../core/ApiResponse'
+import { decodedJwt } from './jwt'
+import UserRepo from '../database/UserRepo'
 
 export default async (req, res, next) => {
   try {

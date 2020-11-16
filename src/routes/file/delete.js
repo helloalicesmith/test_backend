@@ -1,10 +1,10 @@
 import Express from 'express'
 
-import { BadRequestError, SuccessResponse } from '../../core/ApiResponse.js'
-import FilesRepo from '../../database/FilesRepo.js'
-import auth from '../../utils/auth.js'
-import validator from '../../utils/validator.js'
-import schema from '../access/schema.js'
+import { BadRequestError, SuccessResponse } from '../../core/ApiResponse'
+import FilesRepo from '../../database/FilesRepo'
+import auth from '../../utils/auth'
+import validator from '../../utils/validator'
+import schema from '../access/schema'
 
 const router = Express.Router()
 

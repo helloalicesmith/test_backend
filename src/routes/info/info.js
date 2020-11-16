@@ -1,11 +1,11 @@
 import Express from 'express'
 
-import validator from '../../utils/validator.js'
-import { BadRequestError, SuccessResponse } from '../../core/ApiResponse.js'
-import UserRepo from '../../database/UserRepo.js'
-import schema from '../../routes/access/schema.js'
-import auth from '../../utils/auth.js'
-import { decodedJwt } from '../../utils/jwt.js'
+import validator from '../../utils/validator'
+import { BadRequestError, SuccessResponse } from '../../core/ApiResponse'
+import UserRepo from '../../database/UserRepo'
+import schema from '../access/schema'
+import auth from '../../utils/auth'
+import { decodedJwt } from '../../utils/jwt'
 
 const router = Express.Router()
 

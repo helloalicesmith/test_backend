@@ -1,15 +1,15 @@
-import signup from './access/signup.js'
-import signin from './access/signin.js'
-import newToken from './access/newToken.js'
-import logout from './access/logout.js'
+import signup from './access/signup'
+import signin from './access/signin'
+import newToken from './access/newToken'
+import logout from './access/logout'
 
-import upload from './file/upload.js'
-import list from './file/list.js'
-import deleteFile from './file/delete.js'
-import file from './file/file.js'
-import download from './file/download.js'
-import update from './file/update.js'
-import info from './info/info.js'
+import upload from './file/upload'
+import list from './file/list'
+import deleteFile from './file/delete'
+import file from './file/file'
+import download from './file/download'
+import update from './file/update'
+import info from './info/info'
 
 const routes = [signup, signin, newToken, upload, list, deleteFile, file, download, update, info, logout]
 

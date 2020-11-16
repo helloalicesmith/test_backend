@@ -1,24 +1,25 @@
 import Express from 'express'
 import multer from 'multer'
 
-import validator from '../../utils/validator.js'
-import { BadRequestError, SuccessResponse } from '../../core/ApiResponse.js'
-import FilesRepo from '../../database/FilesRepo.js'
-import schema from '../access/schema.js'
-import auth from '../../utils/auth.js'
+import { nanoid } from 'nanoid'
+import validator from '../../utils/validator'
+import { BadRequestError, SuccessResponse } from '../../core/ApiResponse'
+import FilesRepo from '../../database/FilesRepo'
+import schema from '../access/schema'
+import auth from '../../utils/auth'
 
 const router = Express.Router()
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination(req, file, cb) {
     cb(null, 'uploads/')
   },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname)
+  filename(req, file, cb) {
+    cb(null, `${nanoid()}-${file.originalname}`)
   },
 })
 
-const uploadFile = multer({ storage: storage })
+const uploadFile = multer({ storage })
 
 const upload = router.post(
   '/file/upload',
@@ -29,7 +30,7 @@ const upload = router.post(
     try {
       const [file] = req.files
 
-      const [filename, extension] = file.originalname.split('.')
+      const [filename, extension] = file.filename.split('.')
 
       const data = {
         name: filename,

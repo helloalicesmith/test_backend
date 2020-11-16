@@ -1,11 +1,12 @@
+/* eslint-disable camelcase */
 import Express from 'express'
 
-import validator from '../../utils/validator.js'
-import UserRepo from '../../database/UserRepo.js'
-import { compare } from '../../utils/getHash.js'
-import { SuccessAuthorization, BadRequestError } from '../../core/ApiResponse.js'
-import { signJwt } from '../../utils/jwt.js'
-import schema from './schema.js'
+import validator from '../../utils/validator'
+import UserRepo from '../../database/UserRepo'
+import { compare } from '../../utils/getHash'
+import { SuccessAuthorization, BadRequestError } from '../../core/ApiResponse'
+import { signJwt } from '../../utils/jwt'
+import schema from './schema'
 
 const router = Express.Router()
 
@@ -18,7 +19,7 @@ const signin = router.post('/signin', validator(schema.signin), async (req, res)
     const isAuthorized = await compare({ textPassword: password, hash: user.password })
 
     if (isAuthorized) {
-      const newSerial = (user.serial += 1)
+      const newSerial = user.serial + 1
       await UserRepo.updateUser({ id, serial: newSerial })
 
       const access_token = signJwt(user.id, newSerial, 10)

@@ -1,37 +1,22 @@
 import Express from 'express'
 import dotenv from 'dotenv'
-import mysql from 'mysql2'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
-import routes from './routes/index.js'
+import './database'
+import routes from './routes/index'
 
 dotenv.config()
 const app = new Express()
 
-export const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  database: 'users',
-  password: process.env.PASSWD_SQL,
+app.use(cors())
+app.use(Express.static('uploads'))
+app.use(bodyParser.json())
+
+routes.forEach(route => {
+  app.use('/api', route)
 })
 
-connection.connect(err => {
-  if (err) {
-    console.error(`MySQL error -> ${err.message}`)
-    return
-  } else {
-    console.log('Connection to MySQL server was successful')
-
-    app.use(cors())
-    app.use(bodyParser.json())
-
-    routes.forEach(route => {
-      app.use('/api', route)
-    })
-
-    app.listen(process.env.PORT, () => {
-      console.log(`Listening at http://localhost:${process.env.PORT}`)
-    })
-  }
+app.listen(process.env.PORT, () => {
+  console.log(`Listening at http://localhost:${process.env.PORT}`)
 })

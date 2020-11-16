@@ -10,6 +10,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'max-classes-per-file': 0,
     'prettier/prettier': 'error',
   },
 }
