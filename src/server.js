@@ -2,6 +2,7 @@ import Express from 'express'
 import dotenv from 'dotenv'
 import mysql from 'mysql2'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 
 import routes from './routes/index.js'
 
@@ -22,9 +23,8 @@ connection.connect(err => {
   } else {
     console.log('Connection to MySQL server was successful')
 
-    // app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(cors())
     app.use(bodyParser.json())
-    // app.use(bodyParser.urlencoded())
 
     routes.forEach(route => {
       app.use('/api', route)
